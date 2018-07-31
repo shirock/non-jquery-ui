@@ -1,7 +1,7 @@
 /**
 MIT License
 
-Copyright (c) 2018  遊手好閒的石頭成 <shirock.tw@gmail.com> rocksaying.tw
+Copyright (c) 2013  遊手好閒的石頭成 <shirock.tw@gmail.com> rocksaying.tw
 
 JavaScript String interpolation 字串插補點函數
 石頭成: http://rocksaying.tw/archives/25899028.html
@@ -10,6 +10,8 @@ JavaScript String interpolation 字串插補點函數
 如果你不需要考慮 IE 使用者，你應該使用 ES6 的 template string 語法。
 
 Notice: prototype.js 也為 String 擴充了一個 interpolate 方法，但它的用法和我不一樣。
+
+Depend: none
  */
 if (String.prototype.interpolate) {
     console.info("Override String::interpolate method.");

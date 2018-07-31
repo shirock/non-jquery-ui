@@ -3,14 +3,14 @@ MIT License
 
 Copyright (c) 2018  遊手好閒的石頭成 <shirock.tw@gmail.com> rocksaying.tw
 
-ECMAScript Array Polyfill
+ECMAScript Array Polyfill. All version of IE do not support EMCAScript 6.
 
 Current has these methods:
 
 * Array::forEach. And a global function forEach.
 * Array::indexOf
 
-All version of IE do not support EMCAScript 6.
+Depend: none
  */
 
 // IE 全系列不提供 Array.forEach 方法

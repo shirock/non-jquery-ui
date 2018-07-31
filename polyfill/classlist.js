@@ -8,6 +8,8 @@ classList polyfill. This is for IE8, IE9.
 I only implement a classList class.
 
 Ref: https://developer.mozilla.org/zh-TW/docs/Web/API/DOMTokenList
+
+Depend: none
  */
 if (!window.DOMTokenList) { // IE8 does not support DOMTokenList
 function DOMClassList(elm) {
