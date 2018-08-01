@@ -1,0 +1,8 @@
+.overlay-message {
+  padding: 2em 1em;
+  margin: 20% 30%;
+  border-radius: 1em;
+  font-size: 300%;
+  color: white;
+  background-color: rgb(60, 179, 113);
+}

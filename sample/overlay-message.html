@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html>
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="../ui/overlay-message.css">
+<script src="../ui/overlay-message.js"></script>
+
+<script>
+function init(){
+    console.log('init');
+    var clock_div = document.getElementById('clock');
+    function clock_run() {
+        var clock = new Date();
+        clock_div.innerText = clock.toString();
+    }
+    clock_run();
+    setInterval(clock_run, 1000);
+
+    overlayMessage.initial(); 
+    // 因為 IE8 的事件執行順序相反，先 winodw init 然後才是 overlay init 。
+    // 如果在 IE8 環境，要在 window init 中就呼叫 overlayMessage.show，
+    // 需要先呼叫 overlayMessage.initial 才能讓下一行 show 正確執行。
+    // 現代瀏覽器則可寫可不寫。
+
+    overlayMessage.show("資料處理中，請稍等三秒...");
+    // IE8 的使用問題: IE8不支援透明背景，所以覆蓋訊息會完全蓋住頁面內容。
+    // 但若不指定背景色，IE8 竟然不會蓋住整頁，使用者依然可以碰到底下的頁面內容。
+
+    setTimeout(overlayMessage.off, 3000); 
+}
+window.onload = init;
+</script>
+
+<p>
+overlayMessage 可在執行非同步工作時，顯示覆蓋全頁的訊息，阻擋使用者操作頁面的內容。
+例如使用 XmlHttpRequest 上傳表單資料時，防止使用者在上傳完成前修改表單。
+</p>
+<p>
+基於設計目的，應在非同步工作完成後，由程式關閉覆蓋訊息，所以預設不顯示關閉按鈕，不讓使用者自己關閉。
+除非你要把覆蓋訊息當成 alert() 的替代品來用，才使用關閉按鈕。
+</p>
+
+<div>
+<p>
+Show an overlay message with close button: 
+</p>
+<p>
+<button type="button" onclick="overlayMessage.show('hello world', {'close-button': true})">Default button</button>
+</p>
+<p>
+<button type="button" onclick="overlayMessage.show('hello world', {'close-button': '❎'})">Custom button</button>
+</p>
+</div>
+
+<p>The clock will keep working.</p>
+<div id="clock" style="font-size: 1.5em; margin: 5px; padding: 5px; border: 1px solid black;">
+</div>
+
+<p>
+顯示覆蓋訊息時，不會擱置其他背景工作。而 alert() 則會擱置背景工作 (worker不受影嚮)。
+</p>
+
+<form id="myform">
+    <fieldset name="group2">
+        <input id="y1" name="ra" type="radio" label="radio1" value="a"/>
+        <input id="y2" name="ra" type="radio" label="radio2" value="b"/>
+    </fieldset>
+    <fieldset name="group3">
+        group3_hello: <input id="hello" type="text" placeholder="hello" title="Hello">
+    </fieldset>
+    <br/>
+    <fieldset name="group1">
+        <input id="f1" value="1" label="c1" type="checkbox" value=""/>
+        <input id="f2" value="2" label="c2" type="checkbox" value=""/>
+        <input id="f3" value="c3" type="checkbox" class="inputbox" value="X">
+    </fieldset>
+    <br/>
+    list<br>
+    <select name="list1" id="list1">
+        <option value="1">1</option>
+        <option value="2">2</option>
+    </select>
+
+    <br>
+    <input type="hidden" name="hide" value="yyyy">
+
+    <button type="submit">submit</button>
+
+</form>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+</html>
