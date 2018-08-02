@@ -1,0 +1,19 @@
+.notify-osd {
+    background-color: khaki;
+    width: 200px;
+    height: 80px;
+    border: 1px solid coral;
+    border-radius: 10px;
+}
+
+.notify-osd-message {
+    padding: 5px;
+    text-overflow : ellipsis;
+    /* border: 1px solid black; */
+}
+
+.notify-osd-count {
+    font-size: smaller;
+    text-align: right;
+    /* border: 1px solid black; */
+}
