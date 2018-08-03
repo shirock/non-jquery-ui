@@ -9,16 +9,18 @@ Depend: polyfill/classlist.js (*)
 如果你要在 IE8 中使用，才需要加入 classlist.js 。
  */
 var notifyOSD = new (function(){
-    console.info('NotifyOSD initial');
+    // console.info('NotifyOSD initial');
     var base = this;
+    base.wins = [];
 
     var Z_INITIAL = 1999;
     var closable = true;
+    var corner = 'right-top';
+    var count_template;
+    set_config();
 
-    base.wins = [];
-    base.top_z = Z_INITIAL;
-    base.bot_z = Z_INITIAL;
-    base.corner = 'right-top';
+    var top_z = Z_INITIAL;
+    var bot_z = Z_INITIAL;
 
     function add_style_class(node, className) {
         node.classList.add(className);
@@ -50,7 +52,7 @@ var notifyOSD = new (function(){
     function set_position(win) {
         // console.log('set_position');
         var top = 0, left = 0;
-        var c = base.corner.split('-');
+        var c = corner.split('-');
 
         if (c[0] == 'right') {
             left = document.body.offsetWidth - win.offsetWidth;
@@ -91,6 +93,19 @@ var notifyOSD = new (function(){
         // node.style.border = '1px solid black';
     }
 
+    function create_close_button() {
+        var btn = document.createElement('button');
+        btn.innerText = '✘';
+        btn.style.backgroundColor = 'transparent';
+        btn.style.border = '0';
+        btn.style.float = 'right';
+        if (btn.attachEvent)
+            btn.attachEvent('onclick', notifyOSD.pop);
+        else
+            btn.addEventListener('click', notifyOSD.pop);
+        return btn;
+    }
+
     function set_count_message() {
         if (base.wins.length < 1)
             return;
@@ -114,37 +129,46 @@ var notifyOSD = new (function(){
         }
 
         if (base.wins.length > 1)
-            count_node.innerText = '還有' + base.wins.length + '筆訊息';
+            count_node.innerText = count_template.replace('$c', base.wins.length);
         else
             count_node.innerText = '';
 
-        if (closable) {
-            var btn = document.createElement('button');
-            btn.innerText = '✘';
-            btn.style.backgroundColor = 'transparent';
-            btn.style.border = '0';
-            btn.style.float = 'right';
-            btn.addEventListener('click', notifyOSD.pop);
-            count_node.appendChild(btn);
-        }
+        if (closable)
+            count_node.appendChild(create_close_button());
     } // end set_count_message
 
-    this.set_notify_corner = function(corner) {
-        if (base.corner == corner)
-            return;
-        base.corner = corner;
-        change_all_windows_position();
-    } // set corner
+    function set_config(settings) {
+        if (!settings)
+            settings = {};
+        closable = settings.closable || false;
+        corner = settings.corner || 'right-top';
+        count_template = settings.count_template || '還有$c筆訊息';
+        Z_INITIAL = settings.zIndexBase || 1999;
+    }
 
     /**
-    一個 title 一個視窗，不會重覆建立。
+     * Set configuration.
+     * @param {Object} settings 
+     * @param {boolean} [settings.closable=false]
+     * @param {string} [settings.corner='right-top'] - left-top, left-bottom, right-top, right-bottom.
+     * @param {string} [settings.count_template='還有$c筆訊息']
+     * @param {number} [settings.zIndexBase=1999]
+     */
+    this.setConfig = set_config;
+
+    /**
+     * 一個 title 一個視窗，不會重覆建立。
+     * @param {string} title
+     * @param {string} msg
+     * @param {Object} options
+     * @param {boolean} options.to_bottom
      */
     this.push = function(title, msg, options) {
         if (find_win(title))
             return;
 
         if (base.wins.length == 0) {
-            base.top_z = base.bot_z = Z_INITIAL;
+            top_z = bot_z = Z_INITIAL;
         }
 
         if (!options) {
@@ -160,8 +184,8 @@ var notifyOSD = new (function(){
         var win_z;
 
         if (to_bottom) {
-            --base.bot_z;
-            win_z = base.bot_z;
+            --bot_z;
+            win_z = bot_z;
 
             base.wins.push({
                 'title': title,
@@ -169,8 +193,8 @@ var notifyOSD = new (function(){
             });
         }
         else {
-            ++base.top_z;
-            win_z = base.top_z;
+            ++top_z;
+            win_z = top_z;
 
             base.wins.unshift({
                 'title': title,
@@ -183,7 +207,7 @@ var notifyOSD = new (function(){
         win.style.position = 'fixed';
         win.style.visibility = 'hidden';
         win.style.zIndex = win_z;
-        // console.log(base.top_z, base.bot_z, win_z);
+        // console.log(top_z, bot_z, win_z);
         var msg_node = document.createElement('div');
         add_style_class(msg_node, 'notify-osd-message');
         inner_node_style_init(msg_node);
@@ -201,8 +225,20 @@ var notifyOSD = new (function(){
         })(win), 100);
     } // push
 
+    /**
+     * Append notify message to bottom of stack.
+     * @param {string} title 
+     * @param {string} msg 
+     */
+    this.append = function(title, msg) {
+        this.push(title, msg, {'to_bottom': true});
+    } // append
+
+    /**
+     * Remove notify message by title.
+     * @param {string} title 
+     */
     this.remove = function(title) {
-        // console.log('notify remove', title);
         var r = find_win(title);
         if (!r)
             return;
@@ -211,6 +247,9 @@ var notifyOSD = new (function(){
         remove_win_from_document(r.win.win);
     } // remove
 
+    /**
+     * Remove the notify messsage at the top of the stack.
+     */
     this.pop = function() {
         if (base.wins.length < 1)
             return;
