@@ -3,7 +3,8 @@ MIT License
 
 Copyright (c) 2018  遊手好閒的石頭成 <shirock.tw@gmail.com> rocksaying.tw
 
-classList polyfill. This is for IE8, IE9.
+- classList polyfill. This is for IE8, IE9.
+- DOM getElementsByClassName(). For IE8.
 
 I only implement a classList class.
 
@@ -101,3 +102,9 @@ Object.defineProperty(window.Element.prototype, 'classList', {
     }
 });
 } // end IE8 classList
+
+if (!document.getElementsByClassName) {
+document.getElementsByClassName = 
+Element.prototype.getElementsByClassName = function(className){
+    return this.querySelectorAll('.' + className);
+}}

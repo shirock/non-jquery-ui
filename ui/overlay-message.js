@@ -105,6 +105,8 @@ var overlayMessage = new (function(){
     }
 
     this.initial = function() {
+        if (document.readyState == 'loading')
+            return;
         if (doc)
             return;
         // console.log('overlay init');

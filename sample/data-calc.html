@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html>
+<meta charset="utf-8">
+
+<script src="../polyfill/array-polyfill.js"></script><!-- for IE8~11 -->
+<script src="../ui/input-data-calc.js"></script>
+
+<script>
+DataCalc.sum('prices');
+
+DataCalc.set('acreage', function(nodes) {
+    var v = Number(nodes[0].value) * Number(nodes[1].value);
+    nodes[2].value = v || '';
+});
+
+DataCalc.set('expr1', function(nodes) {
+    var v = Number(nodes[1].value) * Number(nodes[2].value) + Number(nodes[3].value);
+    nodes[0].value = v || '';
+});
+
+DataCalc.set('fruit', function(nodes){
+    nodes[1].value = nodes[0].value;
+});
+</script>
+
+<p>
+    <input type="text" class="prices" value="1">
+    <input type="text" class="prices">
+    <input type="text" class="prices">
+    <input type="text" class="prices">
+    <br/>
+    Total: <input type="text" class="prices">
+</p>
+
+<p>
+    Width: <input type="text" class="acreage"> x 
+    Height: <input type="text" class="acreage">
+    = <input type="text" class="acreage">
+</p>
+
+<p>
+    <input type="text" class="expr1"> x 
+    <input type="text" class="expr1"> +
+    <input type="text" class="expr1"> =
+    <input type="text" class="expr1" data-order="0">
+</p>
+
+<div>
+<select class="fruit">
+    <option value="apple">apple</option>
+    <option value="orange" selected>orange</option>
+</select>
+<input type="text" class="fruit">
+</div>
+
+</html>
