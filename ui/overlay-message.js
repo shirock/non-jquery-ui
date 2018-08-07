@@ -5,16 +5,8 @@ Copyright (c) 2018  遊手好閒的石頭成 <shirock.tw@gmail.com> rocksaying.t
 
 overlayMessage 可在執行非同步工作時，顯示覆蓋全頁的訊息，阻擋使用者操作頁面的內容。
 
-overlayMessage.show(message, options)
-Show an overlay message.
-@param message: string.
-@param options: table.
- * overlay-message: The style class of overlayMessage.
- * close-button: The content of close button. Default is false.
-   you could use '❌', '✖', 'ⓧ', '╳', '⛒', '✘' or '❎', etc.
-
-overlayMessage.off()
-Close overlay message.
+- overlayMessage.show(message, options)
+- overlayMessage.off()
 
 Compatibility: Morden HTML5 browser. MS IE8 ~ IE11.
 Depend: none
@@ -79,6 +71,15 @@ var overlayMessage = new (function(){
             btn.style.visibility = 'hidden';
     }
 
+    /**
+    overlayMessage.show(message, options)
+    Show an overlay message.
+    @param {string} message
+    @param {Object} options
+    @param {string} [options['overlay-message']='overlay-message'] - The style class of overlayMessage.
+    @param {string|boolean} [options['close-button']=false] - The content of close button. Default is false.
+            you could use '❌', '✖', 'ⓧ', '╳', '⛒', '✘' or '❎', etc.
+     */
     this.show = function(message, options) {
         // console.log('call show ', doc, message, options);
         if (!doc)
@@ -92,6 +93,10 @@ var overlayMessage = new (function(){
         toggle_close_button(opts['close-button']);
     }
 
+    /**
+    overlayMessage.off()
+    Close overlay message.
+     */
     this.off = function() {
         if (!doc || overlay.style.display == 'none')
             return;

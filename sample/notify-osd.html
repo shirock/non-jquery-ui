@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="../ui/notify-osd.css">
+<script src="../polyfill/classlist.js"></script><!-- for IE8 -->
+<script src="../ui/notify-osd.js"></script>
+
+<script>
+function init(){
+    notifyOSD.setConfig({
+        'closable': true
+    });
+}
+window.onload = init;
+</script>
+
+<p>
+notifyOSD
+</p>
+
+<p>
+<button type="button" onclick="notifyOSD.push('title1', 'notify 1')">notify 1</button> |
+<button type="button" onclick="notifyOSD.push('title2', 'notify 2')">notify 2</button> |
+<button type="button" onclick="notifyOSD.push('title3', 'notify 3')">notify 3</button> |
+<button type="button" onclick="notifyOSD.push('title4', 'notify 4')">notify 4</button>
+</p>
+
+<p>
+<button type="button" onclick="notifyOSD.remove('title1')">close 1</button> |
+<button type="button" onclick="notifyOSD.remove('title2')">close 2</button> |
+<button type="button" onclick="notifyOSD.remove('title3')">close 3</button> |
+<button type="button" onclick="notifyOSD.remove('title4')">close 4</button>
+</p>
+
+<p>
+<button type="button" onclick="notifyOSD.pop()">close top notify</button>
+</p>
+
+</html>

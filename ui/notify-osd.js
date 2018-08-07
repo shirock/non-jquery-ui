@@ -3,6 +3,12 @@ MIT License
 
 Copyright (c) 2018  遊手好閒的石頭成 <shirock.tw@gmail.com> rocksaying.tw
 
+- notifyOSD.push(title, message, options)
+- notifyOSD.append(title, message)
+- noitfyOSD.remove(title)
+- notifyOSD.pop()
+- notifyOSD.setConfig(settings)
+
 Compatibility: Morden HTML5 browser. MS IE8(*) ~ IE11.
 Depend: polyfill/classlist.js (*)
 
@@ -147,6 +153,7 @@ var notifyOSD = new (function(){
     }
 
     /**
+     * notifyOSD.setConfig(settings)
      * Set configuration.
      * @param {Object} settings 
      * @param {boolean} [settings.closable=false]
@@ -157,11 +164,13 @@ var notifyOSD = new (function(){
     this.setConfig = set_config;
 
     /**
+     * notifyOSD.push(title, message, options)
+     * 在角落顯示提示訊息視窗。
      * 一個 title 一個視窗，不會重覆建立。
      * @param {string} title
      * @param {string} msg
      * @param {Object} options
-     * @param {boolean} options.to_bottom
+     * @param {boolean} options.to_bottom - 新訊息放在訊息堆疊最下方。
      */
     this.push = function(title, msg, options) {
         if (find_win(title))
@@ -226,6 +235,8 @@ var notifyOSD = new (function(){
     } // push
 
     /**
+     * notifyOSD.append(title, message)
+     * 新訊息放在訊息堆疊最下方。
      * Append notify message to bottom of stack.
      * @param {string} title 
      * @param {string} msg 
@@ -235,6 +246,8 @@ var notifyOSD = new (function(){
     } // append
 
     /**
+     * notifyOSD.remove(title)
+     * 依訊息標題移除提示。
      * Remove notify message by title.
      * @param {string} title 
      */
@@ -248,6 +261,8 @@ var notifyOSD = new (function(){
     } // remove
 
     /**
+     * notifyOSD.pop()
+     * 移除最上方的提示訊息。
      * Remove the notify messsage at the top of the stack.
      */
     this.pop = function() {
