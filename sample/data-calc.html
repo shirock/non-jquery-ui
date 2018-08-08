@@ -7,6 +7,7 @@
 
 <script>
 DataCalc.sum('prices');
+DataCalc.avg('avg1');
 
 DataCalc.set('acreage', function(nodes) {
     var v = Number(nodes[0].value) * Number(nodes[1].value);
@@ -30,6 +31,15 @@ DataCalc.set('fruit', function(nodes){
     <input type="text" class="prices">
     <br/>
     Total: <input type="text" class="prices">
+</p>
+
+<p>
+    <input type="text" class="avg1" value="1">
+    <input type="text" class="avg1">
+    <input type="text" class="avg1">
+    <input type="text" class="avg1">
+    <br/>
+    Avg.: <input type="text" class="avg1">
 </p>
 
 <p>

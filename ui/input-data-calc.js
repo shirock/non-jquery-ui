@@ -16,8 +16,10 @@ var self = this;
 var dgs = {};
 
 /**
+ * calc_func(nodes, values)
  * @callback calc_func
- * @param {NodeList} nodes
+ * @param {Array.<HTMLElement>} nodes
+ * @param {Array.<(number|string)>} values
  */
 
 /**
@@ -37,39 +39,61 @@ this.set = function(class_name, func) {
     }
 }
 
-function sum(nodes) {
+function sum(nodes, values) {
+    // console.log(arguments);
     var sum = 0;
     var count = 0;
+    var last = values.length - 1;
     var v;
     var i;
-    for (i = 0; i < nodes.length - 1; ++i) {
-        v = nodes[i].value;
-        if (v == '')
-            continue;
-        v = Number(v);
-        if (isNaN(v))
+    for (i = 0; i < last; ++i) {
+        v = values[i];
+        if (typeof(v) != 'number')
             continue;
         sum += v;
         ++count;
     }
     if (count == 0)
         sum = '';
-    nodes[nodes.length-1].value = sum;
+    nodes[last].value = sum;
 }
 
 /**
  * DataCalc.sum(class_name)
- * 常用算式: 欄位加總
+ * 常用算式: 欄位加總。結果存入最後一欄。
  * @param {string} class_name 
  */
 this.sum = function(class_name) {
     self.set(class_name, sum);
-}
+} // sum
+
+/**
+ * DataCalc.avg(class_name)
+ * 常用算式: 欄位平均值。結果存入最後一欄。分母是欄位數目-1。
+ * @param {string} class_name 
+ */
+this.avg = function(class_name) {
+self.set(class_name, function(nodes, values){
+    var sum = 0;
+    var len = values.length - 1;
+    var v;
+    var i;
+    for (i = 0; i < len; ++i) {
+        v = values[i];
+        if (typeof(v) != 'number')
+            continue;
+        sum += v;
+    }
+    // console.log(sum, (sum / len).toFixed(2));
+    nodes[len].value = Number((sum / len).toFixed(2)).toString();
+});
+} // avg
 
 function gather_nodes(cname) {
     var nodes = document.querySelectorAll('.' + cname);
     // var nodes = document.getElementsByClassName(cname);
-    var ordered = [];
+    var ordered = []; // HTMLElement[]
+    var values = []; // value of elements. 若欄位值可以轉數值，則型態為 number ，否則維持原狀(string)。
     var idx;
 
     forEach(nodes, function(node){
@@ -77,6 +101,7 @@ function gather_nodes(cname) {
         if (!idx)
             return;
         ordered[idx] = node;
+        values[idx] = Number(node.value) || node.value;
     });
 
     forEach(nodes, function(node){
@@ -84,8 +109,9 @@ function gather_nodes(cname) {
             return;
         idx = ordered.length;
         ordered[idx] = node;
+        values[idx] = Number(node.value) || node.value;
     });
-    return ordered;
+    return [ordered, values];
 }
 
 function data_group_changed(ev) {
@@ -99,7 +125,7 @@ function data_group_changed(ev) {
         if (!dgs[cname])
             continue;
         // console.log('calc ', cname, dgs[cname].func);
-        dgs[cname].func(gather_nodes(cname));
+        dgs[cname].func.apply(target, gather_nodes(cname));
     }
 }
 
@@ -121,7 +147,7 @@ function initial() {
             else
                 node.addEventListener('input', data_group_changed);
         });
-        dgs[cname].func(gather_nodes(cname)); // 針對欄位帶初值的情形，在頁面載入後全部計算一次。
+        dgs[cname].func.apply(window, gather_nodes(cname)); // 針對欄位帶初值的情形，在頁面載入後全部計算一次。
     }
 }
 

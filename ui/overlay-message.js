@@ -76,8 +76,8 @@ var overlayMessage = new (function(){
     Show an overlay message.
     @param {string} message
     @param {Object} options
-    @param {string} [options['overlay-message']='overlay-message'] - The style class of overlayMessage.
-    @param {string|boolean} [options['close-button']=false] - The content of close button. Default is false.
+    @param {string} [options.overlay-message] - The style class of overlayMessage.
+    @param {(string|boolean)} [options.close-button] - The content of close button. Default is false.
             you could use '❌', '✖', 'ⓧ', '╳', '⛒', '✘' or '❎', etc.
      */
     this.show = function(message, options) {
