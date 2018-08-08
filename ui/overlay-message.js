@@ -10,6 +10,8 @@ overlayMessage 可在執行非同步工作時，顯示覆蓋全頁的訊息，�
 
 Compatibility: Morden HTML5 browser. MS IE8 ~ IE11.
 Depend: none
+
+Also see: http://rocksaying.tw/archives/2018/overlayMessage-non-jquery-ui.html
  */
 var overlayMessage = new (function(){
     var overlay = false;

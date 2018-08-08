@@ -13,6 +13,8 @@ Compatibility: Morden HTML5 browser. MS IE8(*) ~ IE11.
 Depend: polyfill/classlist.js (*)
 
 如果你要在 IE8 中使用，才需要加入 classlist.js 。
+
+Also see: http://rocksaying.tw/archives/2018/notifyOSD-non-jquery-ui.html
  */
 var notifyOSD = new (function(){
     // console.info('NotifyOSD initial');
