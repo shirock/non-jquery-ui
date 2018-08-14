@@ -55,6 +55,8 @@ function sum(nodes, values) {
     }
     if (count == 0)
         sum = '';
+    else
+        sum = Number(sum.toFixed(2)).toString();
     nodes[last].value = sum;
 }
 
