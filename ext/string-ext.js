@@ -67,3 +67,10 @@ String.prototype.interpolate2 = function()
         return (args[k] ? args[k] : matched);
     });
 }
+
+// Polyfill for IE8.
+if (!String.prototype.trim) {
+String.prototype.trim = function(){
+    return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
+}
+}
