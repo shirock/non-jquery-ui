@@ -120,7 +120,7 @@ var overlayMessage = new (function(){
         overlay.style.height = '100%';
         overlay.style.width = '100%';
         overlay.style.zIndex = 9999;
-        // overlay.style.display = 'none';
+        overlay.style.display = 'none';
         try {
             overlay.style.backgroundColor = 'rgba(220, 220, 220, 0.7)';
         }
