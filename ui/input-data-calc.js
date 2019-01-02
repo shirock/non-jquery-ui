@@ -5,11 +5,23 @@ Copyright (c) 2018  遊手好閒的石頭成 <shirock.tw@gmail.com> rocksaying.t
 
 DataCalc
 
-Compatibility: Morden HTML5 browser. MS IE8 ~ IE11 (*).
-Depend: polyfill/array-polyfill.js (*)
-
-- 如果要在 IE8~11 使用，才需要加入 array-polyfill.js 。
+Compatibility: Morden HTML5 browser. MS IE8 ~ IE11.
  */
+
+/**
+HTML5 的 querySelectorAll 回傳的是可迭代結果，可配合 for-of 語法也提供 forEach 方法。
+但 IE (8~11) 雖然也提供 querySelectorAll 方法，其結果卻不包含 forEach 方法。 IE 也不支持 for-of 語法。
+所以我在需要相容 IE 的場合，習慣用這個函數走訪 querySelectorAll 的結果。
+ */
+if (!window.forEach) {
+function forEach(nodes, callback) {
+    var i;
+    for (i = 0; i < nodes.length; ++i) {
+        callback(nodes[i], i, nodes);
+    }
+}
+}
+
 var DataCalc = new (function(){
 
 var self = this;
