@@ -52,6 +52,8 @@ HTML5 的 querySelectorAll 回傳的是可迭代結果，可配合 for-of 語法
 if (!window.forEach) {
 function forEach(nodes, callback) {
     var i;
+    if (!nodes)
+        return;
     for (i = 0; i < nodes.length; ++i) {
         callback(nodes[i], i, nodes);
     }
