@@ -1,15 +1,36 @@
 # non-jquery-ui
-HTML UI components without jQuery
 
-## UI
+I have designed some JavaScript libraries that do not require jQuery.
 
-* overlayMessage
-
-## Polyfill
-
-* classList
-* Array
+It also contains polyfills collected from other sources.
 
 ## Extension
 
-* String::interpolate, String::interpolate2
+My custom extensions.
+
+* ajax - JSONRequest().
+* until - Until ... then/catch ...
+* String::interpolate(), String::interpolate2(). IE compatible.
+
+## UI
+
+HTML UI components without jQuery. 
+
+IE compatible.
+
+* overlayMessage
+* notifyOSD
+* input data calc
+* input checkbox render
+
+## Polyfill
+
+Older browsers did not implement all HTML5 features.
+They should fill missing features by Polyfill. 
+
+IE compatible.
+
+* Array - EMCAScript 6 Polyfill.
+* classList
+* eventListener
+* String::trim(), String::startsWith(), String::endsWith().
