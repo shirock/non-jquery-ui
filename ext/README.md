@@ -11,7 +11,7 @@ let data = {
     "level": 123
 };
 
-JSONRequest('GET', url, data)
+JSONRequest('POST', url, data)
 .then(result => {
     console.log('response ', result);
 })
