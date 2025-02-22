@@ -2,7 +2,7 @@
  * MIT License
  * Copyright (C) 2025  遊手好閒的石頭成 <shirock.tw@gmail.com> https://rocksaying.tw
  *
- * NumberInputElement - 數值型態 Input 的擴充元件
+ * NumberInputElement UI元件，自訂增減值按鈕，以及用滑鼠滾輪修改數字
  * 
  * 1.只綁定型態為 number 的 input 控制項 (input type="number")。
  * 2.加入使用滑鼠滾輪改變數值的行為。上滾增值，下滾減值。
