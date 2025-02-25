@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NumberInputElement sample</title>
+
+<style>
+</style>
+<script src="../ui/number-input-element.js"></script>
+</head>
+
+<body>
+
+<p>case 1 and case 2</p>
+<div>
+    
+    <label for="input1">數值欄位: </label>
+    <label for="input1" type="inc">➕</label>
+    <input type="number" id="input1" max="10" min="-15">
+    <label for="input1" type="Dec">➖</label>
+</div>
+
+<p>case 2</p>
+<div>
+    <input type="number" id="input2">
+    <button for="input2" type="dec">➖</button>
+    <button for="input2" type="inc">➕</button>
+</div>
+
+<p>case 3</p>
+<div>
+    <button target="input3" type="dec">➖</button>
+    <input type="number" id="input3">
+    <button target="input3" type="inc">➕</button>
+</div>
+
+<script>
+window.addEventListener('load', function(){
+    // case 1
+    // NumberInputElement.initial();
+
+    // case 2
+    NumberInputElement.initial(id => {
+        return document.querySelectorAll(`[for="${id}"]`);
+    });
+
+    // case 3
+    // NumberInputElement.relatedAttribute = 'target';
+    // NumberInputElement.initial(id => {
+    //     return document.querySelectorAll(`button[target="${id}"]`);
+    // });
+}, false);
+</script>
+</body>
+</html>
