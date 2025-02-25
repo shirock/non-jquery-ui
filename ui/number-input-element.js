@@ -85,15 +85,18 @@ class NumberInputElement
 
         if (act == 'inc') {
             computedValue += step;
-            if (!max || max >= computedValue) {
-                input.value = computedValue;
+            if (max !=null && max < computedValue) {
+                return;
             }
         }
         else if (act == 'dec') {
             computedValue -= step;
-            if (!min || min <= computedValue) {
-                input.value = computedValue;
+            if (min != null && min > computedValue) {
+                return;
             }
         }
+
+        input.value = computedValue;
+        input.dispatchEvent(new Event('input', {bubbles: true}));
     }
 }
