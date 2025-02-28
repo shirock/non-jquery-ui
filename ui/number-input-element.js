@@ -14,6 +14,10 @@
  * 
  * 這個元件不會主動在 input 控制項旁邊增加控制按鈕，而是交給設計師決定。
  * 如果設計師沒有放上代表增值或減值的按鈕／控制項，將只有滑鼠滾輪的擴展行為生效。
+ *
+ * Compatibility: Morden HTML5/ES6 browser. No support for older browsers.
+ * Depend: none
+ * See: https://www.rocksaying.tw/archives/2025/JS-UI-NumberInputElement.html
  */
 class NumberInputElement
 {
