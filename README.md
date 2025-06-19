@@ -12,6 +12,11 @@ My custom extensions.
 * until - Until ... then/catch ...
 * String::interpolate(), String::interpolate2(). IE compatible.
 
+## New UI
+
+* number-input-element.js
+* limited-checkbox.js
+
 ## UI
 
 HTML UI components without jQuery. 
